@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏪 餃子店 AI 自動化方案 | Dumpling House Automation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', 'Noto Sans SC', sans-serif; }
+        body { scroll-behavior: smooth; }
+        .slide { min-height: 100vh; scroll-snap-align: start; }
+        .gradient-text { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .float { animation: float 3s ease-in-out infinite; }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(239, 68, 68, 0.8); }
+        }
+        .new-order { animation: pulse-glow 2s infinite; }
+        .timeline-line { position: absolute; left: 50%; transform: translateX(-50%); width: 2px; height: 100%; background: linear-gradient(to bottom, #667eea, #764ba2); }
+    </style>
+</head>
+<body class="bg-gray-900 text-white overflow-x-hidden">
+
+<!-- Slide 1: Title -->
+<section class="slide flex items-center justify-center relative overflow-hidden">
+    <div class="absolute inset-0 opacity-20">
+        <div class="absolute top-20 left-20 w-72 h-72 bg-purple-500 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 right-20 w-96 h-96 bg-red-500 rounded-full blur-3xl"></div>
+    </div>
+    <div class="text-center z-10 px-8">
+        <div class="text-8xl mb-6 float">🥟</div>
+        <h1 class="text-6xl font-extrabold mb-4 gradient-text">Dumpling House</h1>
+        <h2 class="text-3xl font-semibold mb-6 text-gray-300">AI 電話訂餐自動化方案</h2>
+        <p class="text-xl text-gray-400 mb-8">Phase 1 MVP · 悉尼測試版</p>
+        <div class="flex gap-4 justify-center">
+            <span class="px-4 py-2 bg-red-600 rounded-full text-sm">Twilio 語音</span>
+            <span class="px-4 py-2 bg-green-600 rounded-full text-sm">GPT-4 智能</span>
+            <span class="px-4 py-2 bg-blue-600 rounded-full text-sm">微信通知</span>
+        </div>
+    </div>
+    <div class="absolute bottom-8 animate-bounce">
+        <span class="text-gray-500">↓ 向下滾動 ↓</span>
+    </div>
+</section>
+
+<!-- Slide 2: Problem -->
+<section class="slide flex flex-col justify-center px-8 py-20 max-w-7xl mx-auto">
+    <h2 class="text-4xl font-bold mb-12 text-center">❌ 當前痛點</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-gray-800 rounded-2xl p-8 card-hover border border-red-500/30">
+            <div class="text-5xl mb-4">📞</div>
+            <h3 class="text-2xl font-bold mb-3 text-red-400">人肉中轉站</h3>
+            <p class="text-gray-400">老闆接聽英文電話 → 理解 → 翻譯 → 電話通知廚房</p>
+            <p class="text-red-400 font-semibold mt-2">浪費 15 分鐘/單</p>
+        </div>
+        <div class="bg-gray-800 rounded-2xl p-8 card-hover border border-yellow-500/30">
+            <div class="text-5xl mb-4">😵</div>
+            <h3 class="text-2xl font-bold mb-3 text-yellow-400">語言切換疲勞</h3>
+            <p class="text-gray-400">英文聽力 + 中文轉述，容易出錯（數量/口味搞混）</p>
+            <p class="text-yellow-400 font-semibold mt-2">準確率僅 85%</p>
+        </div>
+        <div class="bg-gray-800 rounded-2xl p-8 card-hover border border-gray-500/30">
+            <div class="text-5xl mb-4">🚗</div>
+            <h3 class="text-2xl font-bold mb-3 text-gray-400">老闆被綁定</h3>
+            <p class="text-gray-400">開車時無法接單，生意流失 + 行車危險</p>
+            <p class="text-gray-400 font-semibold mt-2">錯過 30% 來電</p>
+        </div>
+    </div>
+</section>
+
+<!-- Slide 3: Solution Architecture -->
+<section class="slide flex flex-col justify-center px-8 py-20 max-w-7xl mx-auto">
+    <h2 class="text-4xl font-bold mb-12 text-center">🎯 解決方案架構</h2>
+    <div class="bg-gray-800 rounded-2xl p-8 mb-8">
+        <div class="grid md:grid-cols-4 gap-4 text-center">
+            <div class="p-4">
+                <div class="text-4xl mb-2">📞</div>
+                <h4 class="font-bold text-blue-400">Twilio</h4>
+                <p class="text-sm text-gray-400">電話接聽 + IVR</p>
+                <p class="text-xs text-gray-500">$25/mo</p>
+            </div>
+            <div class="p-4">
+                <div class="text-4xl mb-2">🎙️</div>
+                <h4 class="font-bold text-green-400">Whisper</h4>
+                <p class="text-sm text-gray-400">語音轉文字</p>
+                <p class="text-xs text-gray-500">$10/mo</p>
+            </div>
+            <div class="p-4">
+                <div class="text-4xl mb-2">🤖</div>
+                <h4 class="font-bold text-purple-400">GPT-4</h4>
+                <p class="text-sm text-gray-400">訂單解析 + 翻譯</p>
+                <p class="text-xs text-gray-500">$15/mo</p>
+            </div>
+            <div class="p-4">
+                <div class="text-4xl mb-2">💬</div>
+                <h4 class="font-bold text-red-400">WeChat</h4>
+                <p class="text-sm text-gray-400">中文通知廚房</p>
+                <p class="text-xs text-gray-500">免費</p>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <p class="text-2xl font-bold text-green-400">2 分鐘完成 → 客戶說完即清楚</p>
+        <p class="text-gray-400">老闆 0 介入，AI 全自動</p>
+    </div>
+</section>
+
+<!-- Slide 4: Architecture Diagram -->
+<section class="slide flex flex-col justify-center px-8 py-20 max-w-7xl mx-auto">
+    <h2 class="text-4xl font-bold mb-12 text-center">🔧 系統架構圖</h2>
+    <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700 overflow-x-auto">
+        <svg viewBox="0 0 900 500" class="w-full" style="min-width: 800px;">
+            <!-- Connections -->
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#667eea" />
+                </marker>
+            </defs>
+            
+            <!-- Customer -->
+            <rect x="20" y="80" width="120" height="80" rx="10" fill="#3B82F6" fill-opacity="0.2" stroke="#3B82F6" stroke-width="2"/>
+            <text x="80" y="115" text-anchor="middle" fill="#3B82F6" font-size="14">👤 客戶</text>
+            <text x="80" y="140" text-anchor="middle" fill="#9CA3AF" font-size="12">英文電話</text>
+            
+            <!-- Twilio -->
+            <rect x="180" y="80" width="120" height="80" rx="10" fill="#10B981" fill-opacity="0.2" stroke="#10B981" stroke-width="2"/>
+            <text x="240" y="115" text-anchor="middle" fill="#10B981" font-size="14">📞 Twilio</text>
+            <text x="240" y="140" text-anchor="middle" fill="#9CA3AF" font-size="12">接聽 + IVR</text>
+            
+            <!-- Whisper -->
+            <rect x="340" y="80" width="120" height="80" rx="10" fill="#8B5CF6" fill-opacity="0.2" stroke="#8B5CF6" stroke-width="2"/>
+            <text x="400" y="115" text-anchor="middle" fill="#8B5CF6" font-size="14">🎙️ Whisper</text>
+            <text x="400" y="140" text-anchor="middle" fill="#9CA3AF" font-size="12">語音轉文字</text>
+            
+            <!-- GPT-4 -->
+            <rect x="500" y="80" width="120

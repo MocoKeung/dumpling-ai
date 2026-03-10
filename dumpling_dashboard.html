@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏪 餃子店 AI 自動化方案 | Project Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', 'Noto Sans SC', sans-serif; }
+        body { scroll-behavior: smooth; }
+        .slide { min-height: 100vh; scroll-snap-align: start; }
+        .gradient-text { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+<!-- Section 1: Header -->
+<section class="min-h-screen flex flex-col items-center justify-center p-8">
+    <div class="text-center max-w-4xl">
+        <div class="text-8xl mb-6">🥟</div>
+        <h1 class="text-6xl font-extrabold mb-4 gradient-text">悉尼餃子店</h1>
+        <h2 class="text-3xl font-semibold mb-6 text-gray-300">AI 電話訂餐自動化方案</h2>
+        <p class="text-xl text-gray-400 mb-8">完整技術架構 + 實現模組 + 投影片 Present</p>
+        
+        <div class="flex flex-wrap gap-3 justify-center">
+            <span class="px-4 py-2 bg-blue-600/20 border border-blue-500 rounded-full text-blue-400">Twilio API</span>
+            <span class="px-4 py-2 bg-green-600/20 border border-green-500 rounded-full text-green-400">OpenAI Whisper</span>
+            <span class="px-4 py-2 bg-purple-600/20 border border-purple-500 rounded-full text-purple-400">GPT-4 Parser</span>
+            <span class="px-4 py-2 bg-red-600/20 border border-red-500 rounded-full text-red-400">微信通知</span>
+        </div>
+    </div>
+</section>
+
+<!-- Section 2: Current Pain Points -->
+<section class="min-h-screen p-12 bg-gray-800/50">
+    <div class="max-w-6xl mx-auto">
+        <h2 class="text-4xl font-bold mb-12 text-center text-red-400">❌ 當前痛點分析</h2>
+        
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-gray-800 rounded-xl p-6 border-l-4 border-red-500">
+                <h3 class="text-2xl font-bold mb-3">📞 人肉中轉站</h3>
+                <p class="text-gray-400 mb-4">老闆接英文電話 → 理解 → 翻譯 → 通知廚房</p>
+                <div class="text-red-400 font-bold">平均延誤 15 分鐘/單</div>
+            </div>
+            
+            <div class="bg-gray-800 rounded-xl p-6 border-l-4 border-yellow-500">
+                <h3 class="text-2xl font-bold mb-3">😵 語言切換疲勞</h3>
+                <p class="text-gray-400 mb-4">英文聽力 + 中文轉述，容易出錯</p>
+                <div class="text-yellow-400 font-bold">準確率僅 85%</div>
+            </div>
+            
+            <div class="bg-gray-800 rounded-xl p-6 border-l-4 border-gray-500">
+                <h3 class="text-2xl font-bold mb-3">🚗 老闆被綁定</h3>
+                <p class="text-gray-400 mb-4">開車時無法接單，生意流失</p>
+                <div class="text-gray-400 font-bold">錯過 30% 來電</div>
+            </div>
+        </div>
+        
+        <!-- Flowchart -->
+        <div class="mt-12 bg-gray-900 rounded-xl p-8">
+            <h3 class="text-xl font-bold mb-6 text-center">當前流程 vs 目標流程</h3>
+            <div class="flex flex-col md:flex-row items-center justify-between text-center">
+                <div class="p-4">
+                    <div class="text-2xl mb-2">👤 客戶</div>
+                    <div class="text-sm text-gray-500">英文電話</div>
+                </div>
+                <div class="text-2xl text-gray-600">→</div>
+                <div class="p-4 bg-red-900/30 rounded-lg">
+                    <div class="text-2xl mb-2">👨‍💼 老闆</div>
+                    <div class="text-sm text-red-400">15min 延遲</div>
+                </div>
+                <div class="text-2xl text-gray-600">→</div>
+                <div class="p-4">
+                    <div class="text-2xl mb-2">👨‍🍳 廚房</div>
+                    <div class="text-sm text-gray-500">開始製作</div>
+                </div>
+            </div>
+            
+            <div class="text-center my-6 text-2xl">⬇️</div>
+            
+            <div class="flex flex-col md:flex-row items-center justify-between text-center">
+                <div class="p-4">
+                    <div class="text-2xl mb-2">👤 客戶</div>
+                </div>
+                <div class="text-2xl text-green-500">→</div>
+                <div class="p-4 bg-green-900/30 rounded-lg">
+                    <div class="text-2xl mb-2">🤖 AI 接線員</div>
+                    <div class="text-sm text-green-400">2 min 自動</div>
+                </div>
+                <div class="text-2xl text-green-500">→</div>
+                <div class="p-4">
+                    <div class="text-2xl mb-2">💬 微信通知</div>
+                    <div class="text-sm text-green-400">即時送達</div>
+                </div>
+                <div class="text-2xl text-green-500">→</div>
+                <div class="p-4">
+                    <div class="text-2xl mb-2">👨‍🍳 廚房</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section 3: Tech Architecture -->
+<section class="min-h-screen p-12">
+    <div class="max-w-6xl mx-auto">
+        <h2 class="text-4xl font-bold mb-12 text-center text-blue-400">🎯 技術架構</h2>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+            <div class="bg-gray-800 rounded-xl p-6 text-center hover:bg-gray-700 transition">
+                <div class="text-4xl mb-3">📞</div>
+                <h4 class="font-bold text-blue-400">Twilio</h4>
+                <p class="text-sm text-gray-400 mt-2">電話接聽 + IVR + 錄音</p>
+                <p class="text-xs text-blue-300 mt-2">$25/月</p>
+            </div>
+            
+            <div class="bg-gray-800 rounded-xl p-6 text-center hover:bg-gray-700 transition">
+                <div class="text-4xl mb-3">🎙️</div>
+                <h4 class="font-bold text-green-400">Whisper</h4>
+                <p class="text-sm text-gray-400 mt-2">英文語音識別</p>
+                <p class="text-xs text-green-300 mt-2">$10/月</p>
+            </div>
+            
+            <div class="bg-gray-800 rounded-xl p-6 text-center hover:bg-gray-700 transition">
+                <div class="text-4xl mb-3">🤖</div>
+                <h4 class="font-bold text-purple-400">GPT-4</h4>
+                <p class="text-sm text-gray-400 mt-2">訂單解析 + 翻譯</p>
+                <p class="text-xs text-purple-300 mt-2">$15/月</p>
+            </div>
+            
+            <div class="bg-gray-800 rounded-xl p-6 text-center hover:bg-gray-700 transition">
+                <div class="text-4xl mb-3">💬</div>
+                <h4 class="font-bold text-red-400">微信企業</h4>
+                <p class="text-sm text-gray-400 mt-2">中文通知廚房</p>
+                <p class="text-xs text-red-300 mt-2">免費</p>
+            </div>
+        </div>
+        
+        <!-- Mermaid Diagram Placeholder -->
+        <div class="bg-gray-800 rounded-xl p-8">
+            <h3 class="text-xl font-bold mb-6 text-center">系統數據流</h3>
+            <div class="flex flex-wrap items-center justify-center gap-2 text-sm">
+                <span class="px-3 py-2 bg-blue-600 rounded">客戶來電</span>
+                <span>→</span>
+                <span class="px-3 py-2 bg-green-600 rounded">Twilio 接聽</span>
+                <span>→</span>
+                <span class="px-3 py-2 bg-purple-600 rounded">Whisper 轉錄</span>
+                <span>→</span>
+                <span class="px-3 py-2 bg-pink-600 rounded">GPT-4 解析</span>
+                <span>→</span>
+                <span class="px-3 py-2 bg-red-600 rounded">微信通知</span>
+                <span>→                <span class="px-3 py-2 bg-yellow-600 rounded">廚房開始</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section 4: Phase Timeline -->
+<section class="min-h-screen p-12 bg-gray-800/30">
+    <div class="max-w-5xl mx-auto">
+        <h2 class="text-4xl font-bold mb-12 text-center text-purple-400">📅 Phase 實施計劃</h2>
+        
+        <div class="space-y-8">
+            <div class="flex items-start gap-6">
+                <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center text-2xl font-bold shrink-0">1</div>
+                <div class="flex-1 bg-gray-800 rounded-xl p-6">
+                    <h3 class="text-2xl font-bold text-green-400">Phase 1: MVP (2 週)</h3>
+                    <p class="text-gray-400 mt-2">Twilio 號碼 + 訂單解析 + 微信通知</p>
+                    <ul class="mt-4 space-y-2 text-sm">
+                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 基礎接聽與轉錄</li>
+                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 5-10 道菜支持</li>
+                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 10 單真實測試</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="flex items-start gap-6">
+                <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center text-2xl font-bold shrink-0">2</div>
+                <div class="flex-1 bg-gray-800 rounded-xl p-6">
+                    <h3 class="text-2xl font-bold text-blue-400">Phase 2: 優化 (3 週)</h3>
+                    <p class="text-gray-400 mt-2">智能問答 + 訂單確認 + 小票打印</p>
+                </div>
+            </div>
+            
+            <div class="flex items-start gap-6">
+                <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center text-2xl font-bold shrink-0">3</div>
+                <div class="flex-1 bg-gray-800 rounded-xl p-6">
+                    <h3 class="text-2xl font-bold text-purple-400">Phase 3: 智能 (4 週)</h3>
+                    <p class="text-gray-400 mt-2">POS 集成 + 數據分析 + 推薦引擎</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section 5: Cost Analysis -->
+<section class="min-h-screen p-12">
+    <div class="max-w-4xl mx-auto">
+        <h2 class="text-4xl font-bold mb-12 text-center text-green-400">💰 成本與 ROI</h2>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-gray-800 rounded-xl p-8">
+                <h3 class="text-xl font-bold mb-6">每月成本</h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between"><span>Twilio 號碼</span><span class="text-blue-400">$25</span></div>
+                    <div class="flex justify-between"><span>Whisper API</span><span class="text-green-400">$10</span></div>
+                    <div class="flex justify-between"><span>GPT-4 API</span><span class="text-purple-400">$15</span></div>
+                    <div class="flex justify-between"><span>微信企業號</span><span class="text-red-400">$0</span></div>
+                    <div class="border-t border-gray-700 pt-3 flex justify-between font-bold">
+                        <span>總計</span><span class="text-green-400">$50/月</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-gray-800 rounded-xl p-8">
+                <h3 class="text-xl font-bold mb-6">預期收益</h3>
+                <p class="text-yellow-400 text-3xl font-bold mb-4">月省 $1,500+</p>
+                <p class="text-gray-400">按老闆時薪 $50，每天省 1 小時計算</p>
+                <p class="text-green-400 mt-4">ROI: 30倍</p>
+            </div>
+        </div>
+        
+        <div class="mt-12 bg-gray-800 rounded-xl p-6">
+            <canvas id="costChart" height="200"></canvas>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="p-12 bg-gray-900 text-center">
+    <p class="text-gray-500">Generated with OpenClaw Multi-Agent Workflow</p>
+    <p class="text-gray-600 text-sm mt-2">Architect → Coder → Dashboard | 2026-03-08</p>
+    <div class="mt-6 flex justify-center gap-4">
+        <a href="dumpling_architecture.md" class="px-4 py-2 bg-blue-600 rounded text-sm hover:bg-blue-700">📋 架構文檔</a>
+        <a href="dumpling_modules/" class="px-4 py-2 bg-green-600 rounded text-sm hover:bg-green-700">💻 源碼模塊</a>
+    </div>
+</footer>
+
+<script>
+// Cost Chart
+new Chart(document.getElementById('costChart'), {
+    type: 'bar',
+    data: {
+        labels: ['当前', 'Phase 1', 'Phase 2', 'Phase 3'],
+        datasets: [{
+            label: '每次订单处理时间(分钟)',
+            data: [15, 2, 1.5, 1],
+            backgroundColor: ['#EF4444', '#10B981', '#3B82F6', '#8B5CF6']
+        }]
+    },
+    options: {
+        plugins: { legend: { display: false } },
+        scales: {
+            y: { beginAtZero: true, ticks: { color: '#9CA3AF' } },
+            x: { ticks: { color: '#9CA3AF' } }
+        }
+    }
+});
+</script>
+
+</body>
+</html>
